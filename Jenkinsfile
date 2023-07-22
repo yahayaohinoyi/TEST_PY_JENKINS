@@ -14,7 +14,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 // Install Python dependencies using pip
-                sh 'pip3 install -r requirements.txt'
+                echo 'pip3 install -r requirements.txt'
             }
         }
 

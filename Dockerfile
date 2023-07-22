@@ -1,18 +1,18 @@
-# Use the official Jenkins LTS (Long-Term Support) image from Docker Hub
+# Use the official Jenkins LTS image as the base
 FROM jenkins/jenkins:lts
 
-# Skip the Jenkins setup wizard by setting the environment variable
-ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
+# Switch to the root user to install system packages
+USER root
 
-# Copy plugin list to the container (optional)
-COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+# Install Python and pip
+RUN apt-get update \
+    && apt-get install -y python3 python3-pip \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy initial Groovy scripts (optional)
-COPY init.groovy.d/ /usr/share/jenkins/ref/init.groovy.d/
+RUN pip install pytest
 
-# Set Jenkins executors (optional)
-COPY executors.groovy /usr/share/jenkins/ref/
+# Switch back to the Jenkins user
+USER jenkins
 
-# If you have custom configurations or additional setup scripts, you can copy them here
+# If you have other custom configurations or plugins to install, you can add them here
 

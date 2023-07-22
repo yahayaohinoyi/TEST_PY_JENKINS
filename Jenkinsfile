@@ -7,7 +7,7 @@ pipeline {
                 // Clone the local Git repository
                 checkout([$class: 'GitSCM', 
                           branches: [[name: '*/master']], 
-                          userRemoteConfigs: [[url: '/Users/yahayaohinoyi/Documents/CODING-PROJECTS/test']]])
+                          userRemoteConfigs: [[url: 'https://github.com/yahayaohinoyi/TEST_PY_JENKINS.git']]])
             }
         }
 
